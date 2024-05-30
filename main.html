@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Quote Gen</title>
+</head>
+<body>
+    <div class="quote-box">
+        <h2>Quote of the day</h2>
+        <blockquote id="quote">Loading...</blockquote>
+        <span id="author">Loading...</span>
+
+        <div>
+            <button onclick="getQuote(api_url)">New Quote</button>
+        </div>
+    </div>  
+
+    <div class="footer">
+        Made for Prakhya
+    </div>
+<script>
+const quote = document.getElementById("quote");
+const author = document.getElementById("author");
+const api_url = "https://api.quotable.io/quotes/random?tags=love|happiness|life|motivation|success";
+
+async function getQuote(url){
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data);
+    if (data.length > 0) {
+        quote.innerHTML = data[0].content;
+        author.innerHTML = data[0].author;
+    } else {
+        quote.innerHTML = "No quote found.";
+        author.innerHTML = "";
+    }
+}
+
+getQuote(api_url);
+
+</script>
+
+</body>
+</html>
